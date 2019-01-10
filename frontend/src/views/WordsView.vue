@@ -27,7 +27,6 @@ export default {
     return {
       socket: io("localhost:3001"),
       words: null,
-      counter: 0,
       wordeasy: null,
       wordmedium: null,
       wordhard: null
