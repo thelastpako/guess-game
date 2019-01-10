@@ -45,7 +45,7 @@
     </div>
     <div class="winner" v-if="this.win">
       <h1>You Right! and you Scored:
-        <div class="win-ptns">{{getDifficultyPoints}}</div>Points!!
+        <div class="win-ptns">{{getDifficultyPoints()}}</div>Points!!
       </h1>
       <button class="paint-btn" @click="goPaint()">Go Paint!</button>
     </div>
@@ -108,11 +108,6 @@ export default {
         y: this.mouse.current.y - rect.top
       };
     },
-    getDifficultyPoints() {
-      if (this.diff === "easy") return 1;
-      else if (this.diff === "medium") return 3;
-      else if (this.diff === "hard") return 5;
-    }
   },
   methods: {
     changeBG() {
@@ -123,6 +118,11 @@ export default {
       ctx.rect(0, 0, 400, 400);
       ctx.fillStyle = this.color.bg;
       ctx.fill();
+    },
+      getDifficultyPoints() {
+      if (this.diff === "easy") return 1;
+      else if (this.diff === "medium") return 3;
+      else if (this.diff === "hard") return 5;
     },
     checkGuess() {
       const lower = this.guess.toLowerCase();
@@ -161,8 +161,7 @@ export default {
       const click = new Audio(require('../../public/click.mp3'))
       click.play()
       var c = document.getElementById("canvas");
-      var ctx = c.getContext("2d");
-      var img = canvas.toDataURL();
+      var img = c.toDataURL();
       this.socket.emit("imgReady", img, this.selectedWord, this.diff);
       this.$router.push("/waiting");
     },
@@ -188,7 +187,7 @@ export default {
       };
       image.src = this.$store.getters.getBaseImg;
     },
-    draw: function(event) {
+    draw() {
       if (this.mouse.down && this.role === "painter") {
         var c = document.getElementById("canvas");
 
