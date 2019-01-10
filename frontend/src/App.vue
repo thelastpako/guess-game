@@ -18,32 +18,37 @@
         BestTime:
         <span class="foot-itm mark">{{getBestTime}}</span>
       </div>
+      <button class="music-btn" @click="playMusic()">PlayMusic</button>
     </footer>
   </div>
 </template>
 
 <script>
 export default {
-  created(){
-    this.setTime()
-    this.setScore()
+  created() {
+    this.setTime();
+    this.setScore();
   },
-  computed:{
-    getScore(){
+  computed: {
+    getScore() {
       return this.$store.getters.getScore;
     },
-    getBestTime(){
+    getBestTime() {
       return this.$store.getters.getBestTime;
-    },
+    }
   },
   methods: {
     setTime() {
-      const time = localStorage.getItem('time');
-        if (!time) this.time = '';
-      this.$store.dispatch('setBestTime', time);
+      const time = localStorage.getItem("time");
+      if (!time) this.time = "";
+      this.$store.dispatch("setBestTime", time);
     },
-    setScore(){
-      this.$store.dispatch('setScore', 0);
+    setScore() {
+      this.$store.dispatch("setScore", 0);
+    },
+    playMusic() {
+      const audio = new Audio(require("../public/morning.mp3"));
+      audio.play();
     }
   }
 };
@@ -54,6 +59,11 @@ export default {
   font-family: "Shrikhand";
   src: url("./assets/fonts/Shrikhand/Shrikhand-Regular.ttf");
 }
+
+*:focus {
+    outline: none;
+}
+
 
 * {
   background-color: #ece8d9;
@@ -77,6 +87,21 @@ export default {
       color: #42b983;
     }
   }
+}
+
+
+.music-btn{
+    border: 1px solid black;
+    height: 21px;
+    background-color: white;
+    border-radius: 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all .03s
+}
+
+.music-btn:hover{
+    background-color: rgb(219, 219, 219);
 }
 
 html {
@@ -120,6 +145,7 @@ img {
   line-height: 40px;
   background-color: #00adb5;
   display: flex;
+  justify-content: center;
   justify-content: space-around;
 }
 

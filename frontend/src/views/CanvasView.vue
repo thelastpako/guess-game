@@ -135,11 +135,18 @@ export default {
         else if (this.diff === "hard") score += 5;
         this.$store.dispatch("setScore", score);
         this.checkTime();
+        const win = new Audio(require('../../public/win.mp3'))
+        win.play()
+      } else {
+        const wrong = new Audio(require('../../public/wrong.mp3'))
+        wrong.play()
       }
     },
     goPaint() {
       sessionStorage.setItem("role", "painter");
       this.socket.emit("playerWon");
+      const click = new Audio(require('../../public/click.mp3'))
+      click.play()
     },
     clearCanvas() {
       var c = document.getElementById("canvas");
@@ -151,6 +158,8 @@ export default {
       ctx.fill();
     },
     saveCanvas() {
+      const click = new Audio(require('../../public/click.mp3'))
+      click.play()
       var c = document.getElementById("canvas");
       var ctx = c.getContext("2d");
       var img = canvas.toDataURL();
@@ -229,6 +238,12 @@ export default {
   background-color: #f8b500;
   color: white;
   -webkit-text-stroke: 1px #39466c;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.paint-btn:hover{
+    background-color: #ffcf4a;
 }
 
 #canvas {
@@ -305,6 +320,11 @@ export default {
   border: 1px solid black;
   border-radius: 13px;
   font-size: 20px;
+  cursor: pointer;
+}
+
+.guess-btn:hover{
+    background-color: #ffcb3b;
 }
 
 .bottom-later-container {

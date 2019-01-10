@@ -35,9 +35,9 @@ export default {
   },
   created() {
     this.words = this.$store.getters.getWords[0]
-    this.wordeasy = this.words.easy[this.getRandomInt(10)]
-    this.wordmedium = this.words.medium[this.getRandomInt(10)]
-    this.wordhard = this.words.hard[this.getRandomInt(10)]
+    this.wordeasy = this.words.easy[this.getRandomInt(this.words.easy.length)]
+    this.wordmedium = this.words.medium[this.getRandomInt(this.words.medium.length)]
+    this.wordhard = this.words.hard[this.getRandomInt(this.words.hard.length)]
   },
   methods: {
     getRandomInt(max) {
@@ -47,6 +47,8 @@ export default {
       this.$store.dispatch('setWord', word);
       this.$store.dispatch('setDiff', difficuly)
       this.$router.push("/canvas");
+        const click = new Audio(require('../../public/click.mp3'))
+        click.play()
     }
   }
 };

@@ -44,6 +44,8 @@ export default {
   methods: {
     playGame() {
       const role = sessionStorage.getItem('role');
+      const click = new Audio(require('../../public/click.mp3'))
+      click.play()
       if (role === 'painter') {
         this.$router.push('/game');
       } else {
@@ -51,17 +53,21 @@ export default {
       }
     },
     beGueeser() {
+      const click = new Audio(require('../../public/click.mp3'))
+      click.play()
       sessionStorage.setItem('role', 'gueeser');
       this.gueeser = true;
       this.painter = true;
       this.socket.emit('setRole', 'gueeser');
     },
     bePainter() {
+      const click = new Audio(require('../../public/click.mp3'))
+      click.play()
       sessionStorage.setItem('role', 'painter');
       this.gueeser = true;
       this.painter = true;
       this.socket.emit('setRole', 'painter');
-    }
+    },
   }
 };
 </script>
